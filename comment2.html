@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Example</title>
+</head>
+<body>
+<form
+    action="https://docs.google.com/forms/u/0/d/e/1FAIpQLSeFnnyHuyCmc0-SOAd57zUiqmJJ9iWzAjphzbQHvqdiKzMTkg/formResponse"
+    method="POST"
+    onsubmit="submitForm(event)"
+>
+    <textarea
+        name="entry.532619777"
+        class="c-form__input"
+        id="textfield"
+        placeholder="コメント"
+        type="text"
+        required="required"
+    ></textarea>
+
+    <div class="c-form__submit">
+        <button type="submit">送信する</button>
+    </div>
+</form>
+
+<script>
+    function submitForm(event) {
+        event.preventDefault(); // フォームのデフォルトの送信を防ぐ
+
+        // フォームデータを取得
+        const form = event.target;
+        const formData = new FormData(form);
+
+        // Googleフォームにデータを送信
+        fetch(form.action, {
+            method: form.method,
+            body: formData,
+            mode: 'no-cors' // クロスオリジンリクエストを許可
+        }).then(() => {
+            // フォームの内容をリセット
+            form.reset();
+        }).catch(error => {
+            console.error('Error!', error.message);
+        });
+    }
+</script>
+</body>
+</html>
